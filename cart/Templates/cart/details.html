@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    <table>
+        {% for item in cart %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>${{ item.total_price }}</td>
+                <td>
+                    <form action="{% url 'cart:cart_remove' item.product.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p>Total: ${{ cart.get_total_price }}</p>
+</body>
+</html>
